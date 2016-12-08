@@ -17,7 +17,8 @@
                 'value': '=',
                 'options': '=',
                 'maxValue': '=',
-		        'gaugeType': '='
+		        'gaugeType': '=',
+                'textField': '@'
             },
             controller: ['$scope', '$element', function($scope, $element) {
 		        if ($scope.gaugeType === 'donut') {
@@ -27,6 +28,15 @@
 		        }
                 if ($scope.options && $scope.options.animationSpeed)
                     $scope.gauge.animationSpeed = $scope.options.animationSpeed;
+
+                if ($scope.textField) {
+                    var el = document.getElementById($scope.textField),
+                        parent = $element.parent();
+                    if (el === null) {
+                        parent.append('<div id="' + $scope.textField + '"></div>');
+                    }
+                    $scope.gauge.setTextField(document.getElementById($scope.textField));
+                }
 				
                 $scope.$watchCollection('[options, value, maxValue]', function(newValues){
                     $scope.gauge.setOptions(newValues[0]);
