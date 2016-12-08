@@ -25,6 +25,9 @@
 		        } else {
                     $scope.gauge = new Gauge($element[0]);
 		        }
+                if ($scope.options && $scope.options.animationSpeed)
+                    $scope.gauge.animationSpeed = $scope.options.animationSpeed;
+				
                 $scope.$watchCollection('[options, value, maxValue]', function(newValues){
                     $scope.gauge.setOptions(newValues[0]);
                     $scope.gauge.maxValue = newValues[2];
